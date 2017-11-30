@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!-- <link rel="preconnect" href="https://ping-nfz.b0.upaiyun.com"> -->
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Chrome 离线包下载 - copy</title>
+    <link rel="icon shortcut" href="./favicon.png">
+    <link rel="icon" href="./favicon.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Chrome 离线包下载器">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cat.net/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
+        <script src="https://cdnjs.cat.net/ajax/libs/ieBetter.js/1.0.3/ieBetter-min.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+    <script>window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date; ga('create', 'UA-83054354-6', 'auto'); ga('send', 'pageview');</script>
+    <script src='https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js' async></script>
+    <link rel="stylesheet" href="https://cdnjs.cat.net/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://cdnjs.cat.net/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
+    <style>
+        .btn {
+            letter-spacing: 0px!important;
+            padding: 0 1rem!important;
+        }
+
+        i.left {
+            margin-right: 5px!important;
+        }
+
+        .card-action {
+            padding: 16px!important;
+        }
+
+        body,
+        html {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
+        }
+
+        .sha256 {
+            word-wrap: break-word!important;
+        }
+        
+        .card-height {
+            height: 270px!important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row" style="margin-top: 56px">
+        <div class="center-align">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' class='center-align' viewBox='0 0 305 305'><path fill='#039BE5' d='M95.5 152.5c0 31.4 25.6 57 57 57s57-25.6 57-57-25.6-57-57-57-57 25.6-57 57z'/><path fill='#D50000' d='M283.7 77.3c.5-.8.5-1.8 0-2.5-13.3-22.4-32.2-41-54.6-54.2C206 7 180 0 153 0 106 0 62.8 21 33.3 57.4c-.7.8-.7 2-.2 2.8l43 74.4c1 .8 2 1.2 3 1.2h.3c1 0 1.8-1 2-1.8 8.6-32.8 38-55.7 72-55.7 2 0 4.3 0 6.5.2H282c1 0 1.6-.4 2-1.2z'/><path fill='#43A047' d='M175 225c-.6-1-1.6-1.2-2.6-1-6.5 2-13.2 2.8-20 2.8-28.5 0-55-16.8-67.2-42.8v-.2L24 77.8c-.5-1-1.4-1.3-2.3-1.3-1 0-1.7.5-2 1.2C6.7 100.5 0 126.3 0 152.5c0 36.8 13.3 72.3 37.3 100 24 27.4 56.7 45.5 92.4 50.8h.4c1 0 2-.4 3-1.2l43-74c.5-1 .5-2-.2-3z'/><path fill='#FFEB3B' d='M292.2 95.2h-86c-1 0-2 .6-2.3 1.6-1 1-1 2 0 2.7 14 14 22 33 22 53 0 15.2-4.6 29.8-13.3 42.3v.2l-61 106.2c-.5.8-.5 1.8 0 2.6.4.7 1.2 1.2 2 1.2 40.5-.5 78.4-16.5 106.8-45.2 28-28.8 44-67 44-107.3 0-19.2-4-38-11-55.7-.4-1-1.3-1.6-2.3-1.6z'/></svg>" height="50px" />
+            <h4>Chrome 离线包下载</h4>
+            <h5>For Windows</h5>
+            <p>
+                <b>查询时间：</b>
+                <span id="checktime"></span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m6 offset-l1 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Stable 稳定版 32 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-stable-x86-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-stable-x86-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light green accent-4" id="version-stable-x86-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-stable-x86"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-stable-x86-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Stable 稳定版 64 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-stable-x64-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-stable-x64-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light green accent-4" id="version-stable-x64-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-stable-x64"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-stable-x64-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 offset-l1 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Beta 测试版 32 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-beta-x86-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-beta-x86-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light blue" id="version-beta-x86-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-beta-x86"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-beta-x86-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Beta 测试版 64 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-beta-x64-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-beta-x64-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light blue" id="version-beta-x64-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-beta-x64"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-beta-x64-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 offset-l1 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Dev 开发版 32 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-dev-x86-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-dev-x86-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light brown lighten-2" id="version-dev-x86-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-dev-x86"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-dev-x86-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Dev 开发版 64 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-dev-x64-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-dev-x64-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light brown lighten-2" id="version-dev-x64-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-dev-x64"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-dev-x64-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 offset-l1 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Canary 金丝雀 32 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-canary-x86-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-canary-x86-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light amber lighten-1" id="version-canary-x86-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-canary-x86"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-canary-x86-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l5">
+            <div class="hoverable card z-depth-2 card-height">
+                <div class="card-content">
+                    <span class="card-title">Canary 金丝雀 64 位</span>
+                    <p>
+                        <b>文件大小：</b>
+                        <span id="version-canary-x64-size"></span>MB</p>
+                    <p>
+                        <b>SHA256：</b>
+                        <span class="sha256" id="version-canary-x64-sha256"></span>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect btn waves-light amber lighten-1" id="version-canary-x64-dl">
+                        <i class="material-icons left">file_download</i>
+                        <strong>
+                            <span id="version-canary-x64"></span>
+                        </strong>
+                    </a>
+                    <a class="waves-effect btn waves-light grey lighten-3 black-text" id="version-canary-x64-cache">
+                        缓存服务器
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cat.net/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script>
+            console.log("\n %c copy from neoFelhz %c http://nfz.moe \n\n", "color: #000000; background: #b0bec5; padding:5px 0;", "background: #e0e0e0; padding:5px 0;");
+            window.cache = "http://120.52.72.21/";
+    </script>
+    <script>
+        var a=$.ajax({url:"https://gl09025.github.io/ChromeChecker/chrome.min.xml",async:false}),c=$.parseXML(a.responseText),b=$(c);b.find("chromechecker").each(function(f){var g=$(this).find("time").attr("checktime");$("#checktime").eq(f).append(g)});b.find("stable86").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-stable-x86-dl").eq(f).append(g);$("#version-stable-x86-dl").eq(f).attr("href",h);$("#version-stable-x86-sha256").eq(f).append(j);$("#version-stable-x86-size").eq(f).append(k);$("#version-stable-x86-cache").eq(f).attr("href",l)});b.find("stable64").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-stable-x64-dl").eq(f).append(g);$("#version-stable-x64-dl").eq(f).attr("href",h);$("#version-stable-x64-sha256").eq(f).append(j);$("#version-stable-x64-size").eq(f).append(k);$("#version-stable-x64-cache").eq(f).attr("href",l)});b.find("beta86").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-beta-x86-dl").eq(f).append(g);$("#version-beta-x86-dl").eq(f).attr("href",h);$("#version-beta-x86-sha256").eq(f).append(j);$("#version-beta-x86-size").eq(f).append(k);$("#version-beta-x86-cache").eq(f).attr("href",l)});b.find("beta64").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-beta-x64-dl").eq(f).append(g);$("#version-beta-x64-dl").eq(f).attr("href",h);$("#version-beta-x64-sha256").eq(f).append(j);$("#version-beta-x64-size").eq(f).append(k);$("#version-beta-x64-cache").eq(f).attr("href",l)});b.find("dev86").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-dev-x86-dl").eq(f).append(g);$("#version-dev-x86-dl").eq(f).attr("href",h);$("#version-dev-x86-sha256").eq(f).append(j);$("#version-dev-x86-size").eq(f).append(k);$("#version-dev-x86-cache").eq(f).attr("href",l)});b.find("dev64").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-dev-x64-dl").eq(f).append(g);$("#version-dev-x64-dl").eq(f).attr("href",h);$("#version-dev-x64-sha256").eq(f).append(j);$("#version-dev-x64-size").eq(f).append(k);$("#version-dev-x64-cache").eq(f).attr("href",l)});b.find("canary86").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-canary-x86-dl").eq(f).append(g);$("#version-canary-x86-dl").eq(f).attr("href",h);$("#version-canary-x86-sha256").eq(f).append(j);$("#version-canary-x86-size").eq(f).append(k);$("#version-canary-x86-cache").eq(f).attr("href",l)});b.find("canary64").each(function(f){var g=$(this).find("manifest").attr("version");var h=$(this).find("url").attr("codebase");var i=$(this).find("package").attr("name");var j=$(this).find("package").attr("hash_sha256");var k=$(this).find("package").attr("size");h=h+i;k=k/1048576;k=k.toFixed(2);var l=h.replace("https://",cache);$("#version-canary-x64-dl").eq(f).append(g);$("#version-canary-x64-dl").eq(f).attr("href",h);$("#version-canary-x64-sha256").eq(f).append(j);$("#version-canary-x64-size").eq(f).append(k);$("#version-canary-x64-cache").eq(f).attr("href",l)});
+    </script>
+
+</body>
+
+</html>
